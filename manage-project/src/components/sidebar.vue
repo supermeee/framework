@@ -7,7 +7,7 @@
           &nbsp;&nbsp;&nbsp;<i class="el-icon-menu"></i>&nbsp;&nbsp;下拉菜单一
         </template>
         <router-link to="/home"><i class="icon-note"></i>Home menuButton</router-link>
-        <router-link to="/page01"><i class="icon-note"></i>Page01 menuButton</router-link>
+        <router-link to="/tasks"><i class="icon-note"></i>任务列表</router-link>
         <router-link to="/page02"><i class="icon-note"></i>Page02 menuButton</router-link>
       </el-collapse-item>
       <el-collapse-item name="2">

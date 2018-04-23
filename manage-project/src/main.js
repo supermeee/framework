@@ -4,14 +4,28 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import ElementUI from 'element-ui'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+import config from './config'
 import 'element-ui/lib/theme-chalk/index.css'
+ /*引入公共样式*/
+import './assets/css/sb-admin-2.css'
+import './vendor/bootstrap/css/bootstrap.css'
+// import './vendor/datatables-plugins/dataTables.bootstrap.css'
+import './vendor/font-awesome/css/font-awesome.min.css'
+
+import helpers from './scripts'
 
 Vue.config.productionTip = false
-Vue.use(ElementUI)
+Vue.use(ElementUI, VueAxios, axios)
+Vue.use(helpers)
+Vue.prototype.$http = axios
+
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  config,
   router,
   components: { App },
   template: '<App/>'

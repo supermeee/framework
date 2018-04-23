@@ -11,6 +11,7 @@
 <script>
 import myMenu from '@/components/sidebar.vue'
 import myHeader from '@/components/header.vue'
+
 export default {
   name: 'App',
   data() {
