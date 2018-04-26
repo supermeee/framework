@@ -1,1 +1,1 @@
-global.HOST = 'http://10.33.73.189:8888'
+global.HOST = 'http://10.33.73.189:4000'

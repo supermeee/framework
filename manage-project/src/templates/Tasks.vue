@@ -8,7 +8,7 @@
           任务列表
         </div>
         <div class="row">
-          <router-link to="/home"><button type="button" class="btn btn-primary">创建任务</button></router-link>
+          <router-link to="/tasks/create"><button type="button" class="btn btn-primary">创建任务</button></router-link>
         </div>
         <!-- /.panel-heading -->
         <div class="panel-body">
@@ -17,6 +17,7 @@
               <tr>
                 <th>序号</th>
                 <th>任务名称</th>
+                <th>任务目标</th>
                 <th>uuid</th>
                 <th>状态</th>
                 <th>进度</th>
@@ -27,9 +28,10 @@
             <tbody>
               <tr class="odd gradeX" v-for="(task, index) in tasks">
                 <th>{{index + 1}}</th>
-                <th>{{ task.name.substring(0, 20) }}</th>
+                <th><router-link :to="{ name: 'TaskReport', params: {task_id:task.id} }">{{ task.name.substring(0, 20) }}</router-link></th>
+                <th>{{ task.targets.substring(0, 20) }}</th>
                 <th>{{ task.uuid }}</th>
-                <th>{{ task.status }}</th>
+                <th>{{ task.status_display }}</th>
                 <th>{{ task.progress }}</th>
                 <th>{{ task.start_time }}</th>
                 <th>{{ task.end_time }}</th>
