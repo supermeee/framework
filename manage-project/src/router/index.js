@@ -8,6 +8,7 @@ import Page03 from '@/templates/Page03'
 import Tasks from '@/templates/Tasks'
 import TaskCreate from '@/templates/TaskCreate'
 import TaskReport from '@/templates/TaskReport'
+import TaskResult from '@/templates/TaskResult'
 
 Vue.use(Router)
 
@@ -32,6 +33,11 @@ export default new Router({
       path: '/taskreport/:task_id',
       name: 'TaskReport',
       component: TaskReport
+    },
+    {
+      path: '/taskresult/:report_id',
+      name: 'TaskResult',
+      component: TaskResult
     },
     {
       path: '/page01',

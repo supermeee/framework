@@ -78,6 +78,7 @@ export default {
         data: {
           name: self.name,
           targets: self.targets,
+          asset_list: self.targets.split(','),
           task_type: self.task_type,
         }
       }).then(function(response) {

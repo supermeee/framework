@@ -1,9 +1,9 @@
 <template>
   <div class="main">
     <div class="col-lg-6">
-                    <div class="panel panel-default">
+                    <div class="panel panel-default" v-for="result in results">
                         <div class="panel-heading">
-                            任务: {{task_id}}
+                            result: {{result.id}}, target: {{result.target}} {{result.create_datetime}}
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -12,17 +12,19 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>report id</th>
-                                            <th>task id</th>
-                                            <th>operations</th>
+                                            <th>url</th>
+                                            <th>漏洞名称</th>
+                                            <th>description</th>
+                                            <th>severity_points</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-bind:class="getcolor" v-for="(report, index) in reports">
+                                        <tr v-bind:class="getcolor" v-for="(vul, index) in result.vuln_list">
                                             <td>{{index+1}}</td>
-                                            <td>{{report.id}}</td>
-                                            <td>{{report.task}}</td>
-                                            <td><router-link :to="{ name: 'TaskResult', params: {report_id:report.id} }">显示详情</router-link></td>
+                                            <td>{{vul.url}}</td>
+                                            <td>{{vul.vuln.i18n_name[1]}}</td>
+                                            <td>{{vul.vuln.i18n_description[1].substring(0, 50)}}</td>
+                                            <td>{{vul.vuln.severity_points}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -40,23 +42,23 @@
 export default {
   data () {
     return {
-        reports: [],
+        results: [],
         task_id: ''
     }
   },
   methods: {
     getReports(){
       var self = this;
-      self.task_id = this.$route.params.task_id;
+      self.report_id = this.$route.params.report_id;
       this.$http({
           method: 'get',
-          url: HOST + '/api/tasks/' + self.task_id + '/reports/',
+          url: HOST + '/api/taskreports/' + self.report_id + '/results/',
           headers: {
             'Authorization': 'JWT ' + this.getCookie('token')
           }
         }).then(function(response) {
           console.log(response.data.data);
-          self.reports = response.data.data;
+          self.results = response.data.data;
         })
         .catch(function(error) {
           console.log(error);

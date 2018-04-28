@@ -18,23 +18,23 @@
                 <th>序号</th>
                 <th>任务名称</th>
                 <th>任务目标</th>
-                <th>uuid</th>
                 <th>状态</th>
                 <th>进度</th>
                 <th>开始时间</th>
                 <th>结束时间</th>
+                <th>操作</th>
               </tr>
             </thead>
             <tbody>
               <tr class="odd gradeX" v-for="(task, index) in tasks">
                 <th>{{index + 1}}</th>
                 <th><router-link :to="{ name: 'TaskReport', params: {task_id:task.id} }">{{ task.name.substring(0, 20) }}</router-link></th>
-                <th>{{ task.targets.substring(0, 20) }}</th>
-                <th>{{ task.uuid }}</th>
+                <th>{{ task.asset_list }}</th>
                 <th>{{ task.status_display }}</th>
                 <th>{{ task.progress }}</th>
                 <th>{{ task.start_time }}</th>
                 <th>{{ task.end_time }}</th>
+                <th><a v-on:click="restartTask(task.id)"><p class="fa fa-repeat"> 重新运行 </p></a></th>
               </tr>
             </tbody>
           </table>
@@ -67,6 +67,27 @@ export default {
         }).then(function(response) {
           console.log(response.data.data);
           self.tasks = response.data.data;
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    restartTask(task_id){
+      console.log('重启:' + task_id)
+      var self = this;
+      this.$http({
+          method: 'post',
+          url: HOST + '/api/tasks/' + task_id + '/restart/',
+          headers: {
+            'Authorization': 'JWT ' + this.getCookie('token')
+          }
+        }).then(function(response) {
+          console.log(response.data);
+          if(response.data.code == 0){
+            alert('success');
+          }else{
+            alert(response.data.detail)
+          }
         })
         .catch(function(error) {
           console.log(error);
