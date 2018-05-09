@@ -1,1 +1,5 @@
 global.HOST = 'http://10.33.73.189:4000'
+// global.HOST = 'http://61.155.138.152:4000'
+global.USERNAME = 'root'
+global.PASSWORD = 'admin'
+// global.PASSWORD = 'VR~j?"=&!q2`'

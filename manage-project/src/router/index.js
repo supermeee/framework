@@ -9,6 +9,8 @@ import Tasks from '@/templates/Tasks'
 import TaskCreate from '@/templates/TaskCreate'
 import TaskReport from '@/templates/TaskReport'
 import TaskResult from '@/templates/TaskResult'
+import SubTask from '@/templates/SubTask'
+import SubTaskStatistics from '@/templates/SubTaskStatistics'
 
 Vue.use(Router)
 
@@ -30,7 +32,17 @@ export default new Router({
       component: TaskCreate
     },
     {
-      path: '/taskreport/:task_id',
+      path: '/subtasks/:task_id',
+      name: 'SubTask',
+      component: SubTask
+    },
+    {
+      path: '/tasks/:task_id/subtasks/:subtask_id/statistics',
+      name: 'SubTaskStatistics',
+      component: SubTaskStatistics
+    },
+    {
+      path: '/taskreport/:subtask_id',
       name: 'TaskReport',
       component: TaskReport
     },

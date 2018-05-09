@@ -26,8 +26,8 @@ export default {
           'Content-Type': 'application/json',
         },
         data: {
-          username: 'root',
-          password: 'admin'
+          username: USERNAME,
+          password: PASSWORD,
         }
       }).then(function(response) {
         console.log(response.data);

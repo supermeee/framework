@@ -1,10 +1,10 @@
 <template>
   <div class="main">
     <div class="col-lg-6">
-                    <div class="panel panel-default" v-for="(report, index) in reports">
+                    <div class="panel panel-default" v-for="(subtask, index) in subtasks">
                         <div class="panel-heading">
-                            report: {{report.id}}, target: {{report.target}}, progress: {{report.progress}}
-                            status: {{report.status_display}} error:{{report.error_msg}}
+                          <router-link :to="{ name: 'SubTaskStatistics', params: {subtask_id:subtask.id, task_id:task_id} }"><button type="button" class="btn btn-info">统计图表</button></router-link>
+                          subtask: {{subtask.id}}, progress:{{subtask.progress}}
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -13,19 +13,17 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>result id</th>
-                                            <th>url</th>
-                                            <th>漏洞名称</th>
-                                            <th>解决方案</th>
+                                            <th>report id</th>
+                                            <th>进度</th>
+                                            <th>operations</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-bind:class="getcolor" v-for="(result, index) in report.taskresults">
+                                        <tr v-bind:class="getcolor" v-for="(report, index) in subtask.taskreports">
                                             <td>{{index+1}}</td>
-                                            <td>{{result.id}}</td>
-                                            <td>{{result.url.substring(0, 40)}}</td>
-                                            <td>{{result.vuln.i18n_name[1]}}</td>
-                                            <td>{{result.vuln.solutions[0].i18n_solution[1]}}</td>
+                                            <td>{{report.id}}</td>
+                                            <td>{{report.progress}}</td>
+                                            <td><router-link :to="{ name: 'TaskReport', params: {subtask_id:subtask.id} }">显示详情</router-link></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -43,23 +41,23 @@
 export default {
   data () {
     return {
-        reports: [],
+        subtasks: [],
         task_id: ''
     }
   },
   methods: {
-    getReports(){
+    getSubTasks(){
       var self = this;
-      self.subtask_id = this.$route.params.subtask_id;
+      self.task_id = this.$route.params.task_id;
       this.$http({
           method: 'get',
-          url: HOST + '/api/subtasks/' + self.subtask_id + '/reports/',
+          url: HOST + '/api/tasks/' + self.task_id + '/subtasks/',
           headers: {
             'Authorization': 'JWT ' + this.getCookie('token')
           }
         }).then(function(response) {
           console.log(response.data.data);
-          self.reports = response.data.data;
+          self.subtasks  = response.data.data;
         })
         .catch(function(error) {
           console.log(error);
@@ -73,7 +71,7 @@ export default {
     },
   },
   created: function() {
-    this.getReports()
+    this.getSubTasks()
   }
 }
 </script>

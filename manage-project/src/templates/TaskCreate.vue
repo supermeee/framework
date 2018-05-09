@@ -43,7 +43,6 @@
                       <option>5</option>
                   </select>
               </div>
-
               <button class="btn btn-default btn-danger" v-on:click="createTask">提交</button>
             </form>
           </div>

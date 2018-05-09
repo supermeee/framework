@@ -28,7 +28,7 @@
             <tbody>
               <tr class="odd gradeX" v-for="(task, index) in tasks">
                 <th>{{index + 1}}</th>
-                <th><router-link :to="{ name: 'TaskReport', params: {task_id:task.id} }">{{ task.name.substring(0, 20) }}</router-link></th>
+                <th><router-link :to="{ name: 'SubTask', params: {task_id:task.id} }">{{ task.name.substring(0, 20) }}</router-link></th>
                 <th>{{ task.asset_list }}</th>
                 <th>{{ task.status_display }}</th>
                 <th>{{ task.progress }}</th>
